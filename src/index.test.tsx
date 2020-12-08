@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import Panzoom from '.';
 
 describe('ExampleComponent', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
-  })
-})
+    expect(Panzoom).toBeTruthy();
+  });
+});
