@@ -1,13 +1,13 @@
-# react-panzoom
+# @metapriori/react-panzoom
 
-> A react wrapper of @panzoom/panzoom
+> Made with create-react-library
 
-[![NPM](https://img.shields.io/npm/v/react-panzoom.svg)](https://www.npmjs.com/package/react-panzoom) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/@metapriori/react-panzoom.svg)](https://www.npmjs.com/package/@metapriori/react-panzoom) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save react-panzoom
+npm install --save @metapriori/react-panzoom
 ```
 
 ## Usage
@@ -15,8 +15,8 @@ npm install --save react-panzoom
 ```tsx
 import React, { Component } from 'react'
 
-import MyComponent from 'react-panzoom'
-import 'react-panzoom/dist/index.css'
+import MyComponent from '@metapriori/react-panzoom'
+import '@metapriori/react-panzoom/dist/index.css'
 
 class Example extends Component {
   render() {

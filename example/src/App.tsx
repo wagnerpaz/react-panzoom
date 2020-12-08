@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { ExampleComponent } from 'react-panzoom'
-import 'react-panzoom/dist/index.css'
+import { ExampleComponent } from '@metapriori/react-panzoom'
+import '@metapriori/react-panzoom/dist/index.css'
 
 const App = () => {
   return <ExampleComponent text="Create React Library Example 😄" />

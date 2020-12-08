@@ -1,10 +1,10 @@
 {
-  "name": "react-panzoom",
+  "name": "@metapriori/react-panzoom",
   "version": "1.0.0",
-  "description": "A react wrapper of @panzoom/panzoom",
+  "description": "Made with create-react-library",
   "author": "wagnerpaz",
   "license": "MIT",
-  "repository": "wagnerpaz/react-panzoom",
+  "repository": "wagnerpaz/@metapriori/react-panzoom",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",

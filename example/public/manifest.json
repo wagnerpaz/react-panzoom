@@ -1,6 +1,6 @@
 {
-  "short_name": "react-panzoom",
-  "name": "react-panzoom",
+  "short_name": "@metapriori/react-panzoom",
+  "name": "@metapriori/react-panzoom",
   "icons": [
     {
       "src": "favicon.ico",
