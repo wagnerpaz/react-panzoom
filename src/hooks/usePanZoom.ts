@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
+import useRegisterPanListeners from './useRegisterPanListeners';
+import useRegisterZoomListeners from './useRegisterZoomListeners';
 
 interface Size {
   width: number;
@@ -77,47 +79,14 @@ export default (
     setDragging(false);
   }, []);
 
+  useRegisterPanListeners(element, { onDragStart, onDrag, onDragEnd });
+
   const onWheel = useCallback((e: WheelEvent) => {
     e.preventDefault();
     setScale((scale) => Math.max(scale + e.deltaY * -0.001, 0.1));
   }, []);
 
-  useEffect(() => {
-    if (element) {
-      element.addEventListener('wheel', onWheel);
-      return () => {
-        element.removeEventListener('wheel', onWheel);
-      };
-    }
-    return () => null;
-  }, [element, onWheel]);
-
-  useEffect(() => {
-    if (element) {
-      element.addEventListener('mousedown', onDragStart);
-
-      return () => {
-        element.removeEventListener('mousedown', onDragStart);
-      };
-    }
-    return () => null;
-  }, [element]);
-
-  useEffect(() => {
-    document.addEventListener('mousemove', onDrag);
-
-    return () => {
-      document.removeEventListener('mousemove', onDrag);
-    };
-  }, [onDrag]);
-
-  useEffect(() => {
-    document.addEventListener('mouseup', onDragEnd);
-
-    return () => {
-      document.removeEventListener('mouseup', onDragEnd);
-    };
-  }, [onDragEnd]);
+  useRegisterZoomListeners(element, { onWheel });
 
   return { translate, scale };
 };
