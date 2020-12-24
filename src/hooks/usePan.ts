@@ -14,10 +14,36 @@ export default (
   element: HTMLElement | null,
   containerSize: Size,
   elementSize: Size,
-  startPan: Pan
+  pan: Pan
 ) => {
-  const [translate, setTranslate] = useState(startPan);
+  const coordsToTranslate = useCallback(
+    (coords: Pan) => {
+      const centerX = -elementSize.width / 2 + containerSize.width / 2;
+      const centerY = -elementSize.height / 2 + containerSize.height / 2;
+      const appliedCoordsX = centerX - coords.x;
+      const appliedCoordsY = centerY - coords.y;
+      return {
+        x: Math.max(
+          Math.min(appliedCoordsX, 0),
+          -elementSize.width + containerSize.width
+        ),
+        y: Math.max(
+          Math.min(appliedCoordsY, 0),
+          -elementSize.height + containerSize.height
+        )
+      };
+    },
+    [containerSize, elementSize]
+  );
+
+  const [translate, setTranslate] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
+
+  useEffect(() => {
+    setTranslate(coordsToTranslate(pan));
+  }, [coordsToTranslate, pan]);
+
+  console.log('translate', translate);
 
   const onDragStart = useCallback(() => {
     setDragging(true);

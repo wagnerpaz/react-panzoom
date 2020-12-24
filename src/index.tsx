@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import usePan from './hooks/usePan';
 import useSizeObserver from './hooks/useSizeObserver';
+import useZoom from './hooks/useZoom';
 
 interface Props {
   style?: React.CSSProperties;
   children: React.ReactElement;
-  startZoom?: number;
-  startPan?: Pan;
+  zoom?: number;
+  pan?: Pan;
 }
 
 interface Pan {
@@ -17,18 +18,17 @@ interface Pan {
 const Panzoom = ({
   children,
   style,
-  startZoom = 100,
-  startPan = { x: 0, y: 0 }
+  zoom = 100,
+  pan = { x: 0, y: 0 }
 }: Props) => {
-  const [container, setContainer] = useState<HTMLDivElement | null>(null);
-  const [element, setElement] = useState<HTMLDivElement | null>(null);
-
-  const [scale] = useState(startZoom / 100);
+  const [container, setContainer] = useState<HTMLElement | null>(null);
+  const [element, setElement] = useState<HTMLElement | null>(null);
 
   const [containerSize] = useSizeObserver(container);
   const [elementSize] = useSizeObserver(element);
 
-  const { translate } = usePan(element, containerSize, elementSize, startPan);
+  const { translate } = usePan(element, containerSize, elementSize, pan);
+  const { scale } = useZoom(element, containerSize, elementSize, zoom);
 
   useEffect(() => {
     if (element) {
