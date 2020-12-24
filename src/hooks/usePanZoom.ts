@@ -14,7 +14,8 @@ export default (
   element: HTMLElement | null,
   containerSize: Size,
   elementSize: Size,
-  pan: Pan
+  pan: Pan,
+  zoom: number
 ) => {
   const coordsToTranslate = useCallback(
     (coords: Pan) => {
@@ -37,6 +38,7 @@ export default (
   );
 
   const [translate, setTranslate] = useState({ x: 0, y: 0 });
+  const [scale, setScale] = useState(zoom / 100);
   const [dragging, setDragging] = useState(false);
 
   useEffect(() => {
@@ -75,6 +77,21 @@ export default (
     setDragging(false);
   }, []);
 
+  const onWheel = useCallback((e: WheelEvent) => {
+    e.preventDefault();
+    setScale((scale) => Math.max(scale + e.deltaY * -0.001, 0.1));
+  }, []);
+
+  useEffect(() => {
+    if (element) {
+      element.addEventListener('wheel', onWheel);
+      return () => {
+        element.removeEventListener('wheel', onWheel);
+      };
+    }
+    return () => null;
+  }, [element, onWheel]);
+
   useEffect(() => {
     if (element) {
       element.addEventListener('mousedown', onDragStart);
@@ -102,5 +119,5 @@ export default (
     };
   }, [onDragEnd]);
 
-  return { translate };
+  return { translate, scale };
 };

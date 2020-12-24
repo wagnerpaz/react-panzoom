@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import usePan from './hooks/usePan';
+import usePanZoom from './hooks/usePanZoom';
 import useSizeObserver from './hooks/useSizeObserver';
-import useZoom from './hooks/useZoom';
 
 interface Props {
   style?: React.CSSProperties;
@@ -27,8 +26,13 @@ const Panzoom = ({
   const [containerSize] = useSizeObserver(container);
   const [elementSize] = useSizeObserver(element);
 
-  const { translate } = usePan(element, containerSize, elementSize, pan);
-  const { scale } = useZoom(element, containerSize, elementSize, zoom);
+  const { translate, scale } = usePanZoom(
+    element,
+    containerSize,
+    elementSize,
+    pan,
+    zoom
+  );
 
   useEffect(() => {
     if (element) {
