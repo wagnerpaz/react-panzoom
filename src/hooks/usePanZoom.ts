@@ -47,6 +47,10 @@ export default (
     setTranslate(coordsToTranslate(pan));
   }, [coordsToTranslate, pan]);
 
+  useEffect(() => {
+    setScale(zoom / 100);
+  }, [zoom]);
+
   console.log('translate', translate);
 
   const onDragStart = useCallback(() => {
@@ -57,8 +61,12 @@ export default (
     (e: MouseEvent) => {
       if (dragging) {
         setTranslate((t) => {
-          const newX = t.x + e.movementX;
-          const newY = t.y + e.movementY;
+          const newX =
+            t.x +
+            (e.movementX * containerSize.width) / elementSize.width / scale;
+          const newY =
+            t.y +
+            (e.movementY * containerSize.height) / elementSize.height / scale;
 
           return {
             x:
